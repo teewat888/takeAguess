@@ -9,6 +9,12 @@ export function getPhotoUrl(data) {
   return url;
 }
 
+export function uniqueID() {
+  const dateString = Date.now().toString(36);
+  const randomness = Math.random().toString(36).substr(2);
+  return dateString + randomness;
+}
+
 export function extractQuestion(data) {
   //extract question / prepare to generate question
   console.log("unformatted data ", data);

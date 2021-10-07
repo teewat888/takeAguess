@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import ImageBox from "./ImageBox";
 import NewGame from "./NewGame";
-import Quiz from "./Quiz";
+import Quizs from "./Quizs";
 
 const QuizContainer = ({
   imgSrc,
@@ -26,7 +26,7 @@ const QuizContainer = ({
           {!newGame ? (
             <NewGame createGame={createGame} />
           ) : (
-            <Quiz
+            <Quizs
               currentQuestion={currentQuestion}
               questionIdx={questionIdx}
               createGame={createGame}

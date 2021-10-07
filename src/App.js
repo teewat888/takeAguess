@@ -47,14 +47,11 @@ function App() {
   const questionTime = 3000; //ms
   const numberOfQuestions = 10;
   const unplashUrl =
-    "https://api.unsplash.com/search/photos/?client_id=" +
-    API_KEY +
-    "&query=" +
-    keyword;
+    "https://api.unsplash.com/search/photos/?client_id=" + API_KEY;
   const triviaUrl = "https://opentdb.com/api.php?amount=" + numberOfQuestions;
 
   const fetchImage = () => {
-    return fetch(unplashUrl)
+    return fetch(unplashUrl + "&query=" + keyword)
       .then((resp) => resp.json())
       .then((data) => {
         setBanner(getPhotoUrl(data));
@@ -89,6 +86,8 @@ function App() {
     if (questions.length !== 0) {
       const formattedQuestion = extractQuestion(questions[questionIdx]);
       setCurrentQuestion(formattedQuestion);
+      //setKeyword(formattedQuestion.question);
+      //fetchImage();
     }
   }, [questionIdx, questions]);
 

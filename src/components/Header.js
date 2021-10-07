@@ -1,8 +1,49 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import HomeButton from "./HomeButton";
-import ScoreBoardButton from "./ScoreBoardButton";
-import UserButton from "./UserButton";
+import { BarChartLine, PersonCircle, HouseDoor } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
+
+const ScoreBoardButton = () => {
+  return (
+    <Link to="/scoreboard">
+      <BarChartLine
+        style={{
+          marginLeft: "25px",
+          marginTop: "15px",
+          transform: "scale(2,2",
+        }}
+      />
+    </Link>
+  );
+};
+
+const HomeButton = () => {
+  return (
+    <Link to="/">
+      <HouseDoor
+        style={{
+          marginLeft: "55px",
+          marginTop: "16px",
+          transform: "scale(2,2",
+        }}
+      />
+    </Link>
+  );
+};
+
+const UserButton = () => {
+  return (
+    <Link to="/user">
+      <PersonCircle
+        style={{
+          marginLeft: "27px",
+          marginTop: "15px",
+          transform: "scale(2,2",
+        }}
+      />
+    </Link>
+  );
+};
 
 const Header = () => {
   return (
