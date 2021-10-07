@@ -1,3 +1,5 @@
+import React from "react";
+
 export function getPhotoUrl(data) {
   //unsplashed endpoint   /search/photos
 
@@ -33,15 +35,17 @@ export function extractQuestion(data) {
       score = 1;
       break;
     case "medium":
-      score = 2;
+      score = 5;
       break;
     case "hard":
-      score = 3;
+      score = 10;
       break;
     default: {
       score = 0;
     }
   }
+
+  // add the correct answer and shuffle
   let allChoices = incorrect_answers;
   allChoices.push(correct_answer);
 
@@ -50,8 +54,6 @@ export function extractQuestion(data) {
   } else {
     allChoices = ["True", "False"];
   }
-
-  // add the correct answer and shuffle
 
   const formattedQuestion = {
     question: question,
@@ -63,4 +65,10 @@ export function extractQuestion(data) {
   };
   console.log("formatted data ", formattedQuestion);
   return formattedQuestion;
+}
+
+export function renderHTML(escapedHTML: string) {
+  return React.createElement("div", {
+    dangerouslySetInnerHTML: { __html: escapedHTML },
+  });
 }

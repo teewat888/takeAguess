@@ -13,6 +13,7 @@ const QuizContainer = ({
   questionIdx,
   numberOfQuestions,
   nextQuestion,
+  handleScore,
 }) => {
   return (
     <>
@@ -32,6 +33,7 @@ const QuizContainer = ({
               createGame={createGame}
               numberOfQuestions={numberOfQuestions}
               nextQuestion={nextQuestion}
+              handleScore={handleScore}
             />
           )}
         </Col>

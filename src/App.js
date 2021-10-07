@@ -44,11 +44,12 @@ function App() {
     score: 0,
   });
   const [keyword, setKeyword] = useState("question");
-  const questionTime = 3000; //ms
   const numberOfQuestions = 10;
   const unplashUrl =
     "https://api.unsplash.com/search/photos/?client_id=" + API_KEY;
   const triviaUrl = "https://opentdb.com/api.php?amount=" + numberOfQuestions;
+
+  const localDB = "http://localhost:3000";
 
   const fetchImage = () => {
     return fetch(unplashUrl + "&query=" + keyword)
@@ -101,6 +102,11 @@ function App() {
     setQuestionIdx((prev) => prev + 1);
   };
 
+  const handleScore = (sc) => {
+    setScore((prev) => prev + sc);
+    console.log("current score::  ", score);
+  };
+
   return (
     <Router>
       <Container fluid>
@@ -117,7 +123,9 @@ function App() {
                   questionIdx={questionIdx}
                   numberOfQuestions={numberOfQuestions}
                   nextQuestion={nextQuestion}
+                  handleScore={handleScore}
                 />
+                <div>Current score: {score}</div>
               </Route>
               <Route path="/scoreboard">
                 <Scoreboard />
