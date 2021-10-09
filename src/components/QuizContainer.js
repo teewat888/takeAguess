@@ -1,42 +1,21 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { AppContext } from "../App";
 import { Row, Col } from "react-bootstrap";
 import ImageBox from "./ImageBox";
 import NewGame from "./NewGame";
 import Quizs from "./Quizs";
 
-const QuizContainer = ({
-  imgSrc,
-  newGame,
-  createGame,
-  currentQuestion,
-  questionIdx,
-  numberOfQuestions,
-  nextQuestion,
-  handleScore,
-}) => {
+const QuizContainer = () => {
+  const { newGame } = useContext(AppContext);
   return (
     <>
       <Row>
         <Col>
-          <ImageBox imgSrc={imgSrc} />
+          <ImageBox />
         </Col>
       </Row>
       <Row>
-        <Col>
-          {!newGame ? (
-            <NewGame createGame={createGame} />
-          ) : (
-            <Quizs
-              currentQuestion={currentQuestion}
-              questionIdx={questionIdx}
-              createGame={createGame}
-              numberOfQuestions={numberOfQuestions}
-              nextQuestion={nextQuestion}
-              handleScore={handleScore}
-            />
-          )}
-        </Col>
+        <Col>{!newGame ? <NewGame /> : <Quizs />}</Col>
       </Row>
     </>
   );

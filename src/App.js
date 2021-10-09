@@ -25,6 +25,9 @@ const Section = styled.div`
   padding: 20px;
 `;
 
+// Create a Context
+const AppContext = React.createContext();
+
 function App() {
   const API_KEY = "cNA5TItg9wcAjyTrbiwVv52vjIZ7IUfxOavV-U6kOWI";
   const [banner, setBanner] = useState("/images/default_sml.jpg");
@@ -102,39 +105,45 @@ function App() {
   };
 
   const handleScore = (sc) => {
+    console.log("sc=> ", sc);
     setScore((prev) => prev + sc);
     console.log("current score::  ", score);
   };
 
+  const value = {
+    banner,
+    newGame,
+    handleNewGame,
+    currentQuestion,
+    questionIdx,
+    numberOfQuestions,
+    nextQuestion,
+    handleScore,
+  };
+
   return (
     <Router>
-      <main>
-        <Section>
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <QuizContainer
-                imgSrc={banner}
-                newGame={newGame}
-                createGame={handleNewGame}
-                currentQuestion={currentQuestion}
-                questionIdx={questionIdx}
-                numberOfQuestions={numberOfQuestions}
-                nextQuestion={nextQuestion}
-                handleScore={handleScore}
-              />
-              <div>Current score: {score}</div>
-            </Route>
-            <Route path="/scoreboard">
-              <Scoreboard />
-            </Route>
-            <Route path="/user">
-              <User />
-            </Route>
-          </Switch>
-        </Section>
-      </main>
+      <AppContext.Provider value={value}>
+        <main>
+          <Section>
+            <Header />
+            <Switch>
+              <Route exact path="/">
+                <QuizContainer />
+                <div>Current score: {score}</div>
+              </Route>
+              <Route path="/scoreboard">
+                <Scoreboard />
+              </Route>
+              <Route path="/user">
+                <User />
+              </Route>
+            </Switch>
+          </Section>
+        </main>
+      </AppContext.Provider>
     </Router>
   );
 }
 export default App;
+export { AppContext };

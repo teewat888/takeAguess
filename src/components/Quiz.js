@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import { renderHTML } from "../helper";
+import { AppContext } from "../App";
 
 const MyButton = styled.button`
   width: 100%;
@@ -16,7 +17,7 @@ const MyButton = styled.button`
   }
 `;
 
-const Quiz = ({ currentQuestion, handleScore, remainder }) => {
+const Quiz = ({ remainder }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [btnColor, setBtnColor] = useState([
     "white",
@@ -25,6 +26,7 @@ const Quiz = ({ currentQuestion, handleScore, remainder }) => {
     "white",
   ]);
   //const [bgcolor, setBgcolor] = useState("white");
+  const { currentQuestion, handleScore } = useContext(AppContext);
 
   const checkAnswer = (e) => {
     // e.preventDefault();
@@ -33,6 +35,12 @@ const Quiz = ({ currentQuestion, handleScore, remainder }) => {
     setIsSubmit(true);
     if (e.currentTarget.value === currentQuestion.answer) {
       console.log("correct answer!");
+      console.log(
+        "q.score => ",
+        currentQuestion.score,
+        " remainder => ",
+        remainder
+      );
       handleScore(currentQuestion.score + remainder);
       switch (parseInt(e.currentTarget.id)) {
         case 0:

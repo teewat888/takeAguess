@@ -1,20 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Quiz from "./Quiz";
 import { renderHTML } from "../helper";
+import { AppContext } from "../App";
 
 import NewGame from "./NewGame";
 
-const Quizs = ({
-  createGame,
-  currentQuestion,
-  questionIdx,
-  numberOfQuestions,
-  nextQuestion,
-  handleScore,
-}) => {
+const Quizs = () => {
   const [remainder, setRemainder] = useState(10);
   const timer = useRef();
+  const { currentQuestion, questionIdx, numberOfQuestions, nextQuestion } =
+    useContext(AppContext);
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -48,17 +44,13 @@ const Quizs = ({
         {renderHTML(currentQuestion.question)}
       </h5>
       <Container style={{ paddingTop: "50px" }}>
-        <Quiz
-          currentQuestion={currentQuestion}
-          handleScore={handleScore}
-          remainder={remainder}
-        />
+        <Quiz remainder={remainder} />
         <Row style={{ paddingTop: "50px" }}>
           <Col style={{ textAlign: "center" }}>Time Left: {remainder}</Col>
         </Row>
         <Row style={{ paddingTop: "50px" }}>
           <Col style={{ textAlign: "center" }}>
-            <NewGame createGame={createGame} />
+            <NewGame />
             <button onClick={onNextQuestion}>Next Question</button>
           </Col>
         </Row>

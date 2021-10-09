@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../App";
 
-const ImageBox = ({ imgSrc }) => {
+const ImageBox = () => {
+  const { banner } = useContext(AppContext);
   return (
     <>
-      <img src={imgSrc} width="735" height="200" />
+      <img src={banner} width="735" height="200" />
     </>
   );
 };
