@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 
 import { getPhotoUrl, extractQuestion } from "./helper";
@@ -25,9 +24,9 @@ const Section = styled.div`
   border-radius: 5px;
   padding: 20px;
 `;
-const API_KEY = "cNA5TItg9wcAjyTrbiwVv52vjIZ7IUfxOavV-U6kOWI";
 
 function App() {
+  const API_KEY = "cNA5TItg9wcAjyTrbiwVv52vjIZ7IUfxOavV-U6kOWI";
   const [banner, setBanner] = useState("/images/default_sml.jpg");
   const [questions, setQuestions] = useState([]);
   const [newGame, setNewGame] = useState(false);
@@ -109,34 +108,32 @@ function App() {
 
   return (
     <Router>
-      <Container fluid>
-        <main>
-          <Section>
-            <Header />
-            <Switch>
-              <Route exact path="/">
-                <QuizContainer
-                  imgSrc={banner}
-                  newGame={newGame}
-                  createGame={handleNewGame}
-                  currentQuestion={currentQuestion}
-                  questionIdx={questionIdx}
-                  numberOfQuestions={numberOfQuestions}
-                  nextQuestion={nextQuestion}
-                  handleScore={handleScore}
-                />
-                <div>Current score: {score}</div>
-              </Route>
-              <Route path="/scoreboard">
-                <Scoreboard />
-              </Route>
-              <Route path="/user">
-                <User />
-              </Route>
-            </Switch>
-          </Section>
-        </main>
-      </Container>
+      <main>
+        <Section>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <QuizContainer
+                imgSrc={banner}
+                newGame={newGame}
+                createGame={handleNewGame}
+                currentQuestion={currentQuestion}
+                questionIdx={questionIdx}
+                numberOfQuestions={numberOfQuestions}
+                nextQuestion={nextQuestion}
+                handleScore={handleScore}
+              />
+              <div>Current score: {score}</div>
+            </Route>
+            <Route path="/scoreboard">
+              <Scoreboard />
+            </Route>
+            <Route path="/user">
+              <User />
+            </Route>
+          </Switch>
+        </Section>
+      </main>
     </Router>
   );
 }

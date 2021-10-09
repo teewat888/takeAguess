@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { renderHTML } from "../helper";
 
 const MyButton = styled.button`
@@ -26,7 +26,7 @@ const Quiz = ({ currentQuestion, handleScore, remainder }) => {
   ]);
   //const [bgcolor, setBgcolor] = useState("white");
 
-  const handleOnclick = (e) => {
+  const checkAnswer = (e) => {
     // e.preventDefault();
     console.log("e id ", e.currentTarget.id);
     //setBtnDisable("disabled");
@@ -80,7 +80,7 @@ const Quiz = ({ currentQuestion, handleScore, remainder }) => {
                 name={choice}
                 type="submit"
                 key={i}
-                onClick={handleOnclick}
+                onClick={checkAnswer}
                 value={choice}
               >
                 {renderHTML(choice)}
