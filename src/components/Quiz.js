@@ -25,13 +25,10 @@ const Quiz = ({ remainder }) => {
     "white",
     "white",
   ]);
-  //const [bgcolor, setBgcolor] = useState("white");
+
   const { currentQuestion, handleScore } = useContext(AppContext);
 
   const checkAnswer = (e) => {
-    // e.preventDefault();
-    console.log("e id ", e.currentTarget.id);
-    //setBtnDisable("disabled");
     setIsSubmit(true);
     if (e.currentTarget.value === currentQuestion.answer) {
       console.log("correct answer!");

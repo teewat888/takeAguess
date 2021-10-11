@@ -97,6 +97,7 @@ function App() {
   const handleNewGame = () => {
     console.log("handle new game");
     fetchGames();
+    setQuestionIdx(0);
     setNewGame(true);
   };
 

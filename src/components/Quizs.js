@@ -7,7 +7,8 @@ import { AppContext } from "../App";
 import NewGame from "./NewGame";
 
 const Quizs = () => {
-  const [remainder, setRemainder] = useState(10);
+  const timeToPlay = 20;
+  const [remainder, setRemainder] = useState(timeToPlay);
   const timer = useRef();
   const { currentQuestion, questionIdx, numberOfQuestions, nextQuestion } =
     useContext(AppContext);
@@ -32,7 +33,8 @@ const Quizs = () => {
 
   const onNextQuestion = () => {
     nextQuestion();
-    setRemainder(10);
+    setRemainder(timeToPlay);
+    console.log("question indx ", questionIdx);
   };
 
   return (
@@ -51,7 +53,11 @@ const Quizs = () => {
         <Row style={{ paddingTop: "50px" }}>
           <Col style={{ textAlign: "center" }}>
             <NewGame />
-            <button onClick={onNextQuestion}>Next Question</button>
+            {questionIdx + 1 < numberOfQuestions ? (
+              <button onClick={onNextQuestion}>Next Question</button>
+            ) : (
+              ""
+            )}
           </Col>
         </Row>
       </Container>
