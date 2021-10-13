@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import { getPhotoUrl, extractQuestion } from "./helper";
 import QuizContainer from "./components/QuizContainer";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -51,8 +50,7 @@ function App() {
     "https://api.unsplash.com/search/photos/?client_id=" + API_KEY;
   const triviaUrl = "https://opentdb.com/api.php?amount=" + numberOfQuestions;
 
-  const localDB = "http://localhost:3000";
-
+  const localDB = "http://localhost:5000";
   const fetchImage = () => {
     return fetch(unplashUrl + "&query=" + keyword)
       .then((resp) => resp.json())
@@ -120,8 +118,9 @@ function App() {
     numberOfQuestions,
     nextQuestion,
     handleScore,
+    score,
+    localDB,
   };
-
   return (
     <Router>
       <AppContext.Provider value={value}>

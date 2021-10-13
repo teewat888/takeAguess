@@ -52,7 +52,6 @@ const Quizs = () => {
         </Row>
         <Row style={{ paddingTop: "50px" }}>
           <Col style={{ textAlign: "center" }}>
-            <NewGame />
             {questionIdx + 1 < numberOfQuestions ? (
               <button onClick={onNextQuestion}>Next Question</button>
             ) : (
