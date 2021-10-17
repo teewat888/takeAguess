@@ -3,10 +3,6 @@ import Button from "react-bootstrap/Button";
 import { Stars } from "react-bootstrap-icons";
 import { AppContext } from "../App";
 
-const NewGameContent = () => {
-  return <div>test</div>;
-};
-
 const NewGame = () => {
   const { handleNewGame } = useContext(AppContext);
   return (

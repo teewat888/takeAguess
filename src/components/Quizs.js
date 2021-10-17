@@ -10,8 +10,17 @@ const Quizs = () => {
   const timeToPlay = 20;
   const [remainder, setRemainder] = useState(timeToPlay);
   const timer = useRef();
-  const { currentQuestion, questionIdx, numberOfQuestions, nextQuestion } =
-    useContext(AppContext);
+  const {
+    currentQuestion,
+    questionIdx,
+    numberOfQuestions,
+    nextQuestion,
+    recordScore,
+    setNewGame,
+    currentUser,
+    setCurrentUser,
+    score,
+  } = useContext(AppContext);
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -26,15 +35,13 @@ const Quizs = () => {
     }
   }, [remainder]);
 
-  const resetTimer = () => {
-    clearInterval(timer.current);
-    setRemainder(10);
-  };
-
   const onNextQuestion = () => {
-    nextQuestion();
-    setRemainder(timeToPlay);
-    console.log("question indx ", questionIdx);
+    if (questionIdx < numberOfQuestions) {
+      setTimeout(() => {
+        nextQuestion();
+        setRemainder(timeToPlay);
+      }, 2000);
+    }
   };
 
   return (
@@ -46,17 +53,13 @@ const Quizs = () => {
         {renderHTML(currentQuestion.question)}
       </h5>
       <Container style={{ paddingTop: "50px" }}>
-        <Quiz remainder={remainder} />
+        <Quiz remainder={remainder} onNextQuestion={onNextQuestion} />
         <Row style={{ paddingTop: "50px" }}>
           <Col style={{ textAlign: "center" }}>Time Left: {remainder}</Col>
         </Row>
         <Row style={{ paddingTop: "50px" }}>
           <Col style={{ textAlign: "center" }}>
-            {questionIdx + 1 < numberOfQuestions ? (
-              <button onClick={onNextQuestion}>Next Question</button>
-            ) : (
-              ""
-            )}
+            <button onClick={onNextQuestion}>Skip this question</button>
           </Col>
         </Row>
       </Container>

@@ -1,42 +1,48 @@
 {
-  "users":[
+  "users": [
+    {
+      "id": 0,
+      "username": "guest",
+      "password": "",
+      "highestScore": 0,
+      "numberPlays": 1
+    },
     {
       "id": 1,
       "username": "tee",
       "password": "a04ce4f25ad79ff8ba880390edfb1ab4",
-      "highestScore" : 145,
-      "numberPlays" : 12
+      "highestScore": 58,
+      "numberPlays": 18
     },
     {
       "id": 2,
       "username": "a",
       "password": "0cc175b9c0f1b6a831c399e269772661",
-      "highestScore" : 55,
-      "numberPlays" : 44
+      "highestScore": 55,
+      "numberPlays": 44
     },
     {
       "id": 3,
       "username": "aa",
       "password": "4124bc0a9335c27f086f24ba207a4912",
-      "highestScore" : 48,
-      "numberPlays" : 33
+      "highestScore": 48,
+      "numberPlays": 33
     },
     {
       "id": 4,
       "username": "aaa",
       "password": "47bce5c74f589f4867dbd57e9ca9f808",
-      "highestScore" : 72,
-      "numberPlays" : 20
+      "highestScore": 72,
+      "numberPlays": 20
     },
     {
       "id": 5,
       "username": "aaaa",
       "password": "74b87337454200d4d33f80c4663dc5e5",
-      "highestScore" : 60,
-      "numberPlays" : 10
+      "highestScore": 60,
+      "numberPlays": 10
     }
-  ]
-  ,
+  ],
   "profile": {
     "name": "typicode"
   }

@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Row, Col } from "react-bootstrap";
-import { BarChartLine, PersonCircle, HouseDoor } from "react-bootstrap-icons";
+import {
+  BarChartLine,
+  Person,
+  PersonCheck,
+  HouseDoor,
+} from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import { AppContext } from "../App";
+import "./Header.css";
 
 const ScoreBoardButton = () => {
   return (
-    <Link to="/scoreboard">
+    <Link to="/scoreboard" className="link">
       <BarChartLine
         style={{
           marginLeft: "25px",
@@ -19,7 +26,7 @@ const ScoreBoardButton = () => {
 
 const HomeButton = () => {
   return (
-    <Link to="/">
+    <Link to="/" className="link">
       <HouseDoor
         style={{
           marginLeft: "55px",
@@ -31,21 +38,33 @@ const HomeButton = () => {
   );
 };
 
-const UserButton = () => {
+const UserButton = ({ loggedIn, currentUser }) => {
   return (
-    <Link to="/user">
-      <PersonCircle
-        style={{
-          marginLeft: "27px",
-          marginTop: "15px",
-          transform: "scale(2,2",
-        }}
-      />
+    <Link to="/user" className="link">
+      {!loggedIn && (
+        <Person
+          style={{
+            marginLeft: "27px",
+            marginTop: "15px",
+            transform: "scale(2,2",
+          }}
+        />
+      )}
+      {loggedIn && (
+        <PersonCheck
+          style={{
+            marginLeft: "27px",
+            marginTop: "15px",
+            transform: "scale(2,2",
+          }}
+        />
+      )}
     </Link>
   );
 };
 
 const Header = () => {
+  const { loggedIn, currentUser } = useContext(AppContext);
   return (
     <Row>
       <Col sm={3}></Col>
@@ -55,7 +74,7 @@ const Header = () => {
       <Col sm={3}>
         <HomeButton />
         <ScoreBoardButton />
-        <UserButton />
+        <UserButton loggedIn={loggedIn} currentUser={currentUser} />
       </Col>
     </Row>
   );

@@ -17,8 +17,13 @@ const MyButton = styled.button`
   }
 `;
 
-const Quiz = ({ remainder }) => {
-  const [isSubmit, setIsSubmit] = useState(false);
+const Quiz = ({
+  remainder,
+  onNextQuestion,
+  isSubmit,
+  setIsSubmit,
+  setCorrect,
+}) => {
   const [btnColor, setBtnColor] = useState([
     "white",
     "white",
@@ -31,14 +36,9 @@ const Quiz = ({ remainder }) => {
   const checkAnswer = (e) => {
     setIsSubmit(true);
     if (e.currentTarget.value === currentQuestion.answer) {
-      console.log("correct answer!");
-      console.log(
-        "q.score => ",
-        currentQuestion.score,
-        " remainder => ",
-        remainder
-      );
+      setCorrect(true);
       handleScore(currentQuestion.score + remainder);
+      onNextQuestion();
       switch (parseInt(e.currentTarget.id)) {
         case 0:
           setBtnColor(["green", "#eeeeee", "#eeeeee", "#eeeeee"]);
@@ -54,7 +54,8 @@ const Quiz = ({ remainder }) => {
           break;
       }
     } else {
-      console.log("wrong answer!");
+      setCorrect(false);
+      onNextQuestion();
       switch (parseInt(e.currentTarget.id)) {
         case 0:
           setBtnColor(["red", "#eeeeee", "#eeeeee", "#eeeeee"]);
@@ -71,9 +72,11 @@ const Quiz = ({ remainder }) => {
       }
     }
   };
+
   useEffect(() => {
     setIsSubmit(false);
   }, [currentQuestion]);
+
   return (
     <>
       <Row xs={2}>
