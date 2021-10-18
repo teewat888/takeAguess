@@ -65,7 +65,8 @@ function App() {
     "https://api.unsplash.com/search/photos/?client_id=" + API_KEY;
   const triviaUrl = "https://opentdb.com/api.php?amount=" + numberOfQuestions;
 
-  const localDB = "http://localhost:5000";
+  //const localDB = "http://localhost:5000";
+  const localDB = "https://616d759f6dacbb001794ca7c.mockapi.io";
   const fetchImage = () => {
     return fetch(unplashUrl + "&query=" + keyword)
       .then((resp) => resp.json())
@@ -143,7 +144,7 @@ function App() {
 
   const fetchUpdateUser = () => {
     const confObj = {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "content-type": "application/json",
         accept: "application/json",
@@ -161,6 +162,9 @@ function App() {
 
   const recordScore = () => {
     fetchUpdateUser();
+    setTimeout(() => {
+      setFinish(false);
+    }, 5000);
   };
 
   const value = {
