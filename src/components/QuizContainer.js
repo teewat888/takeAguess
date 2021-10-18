@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import { AppContext } from "../App";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { renderHTML } from "../helper";
 import ImageBox from "./ImageBox";
 import NewGame from "./NewGame";
@@ -8,6 +8,7 @@ import Quiz from "./Quiz";
 import { H4Q, H5Q, ContainerQ, RowQ, ColQ } from "./QuizStyles";
 import FinishBox from "./FinishBox";
 import ShowResult from "./ShowResult";
+import { CaretRight } from "react-bootstrap-icons";
 
 const QuizContainer = () => {
   const [correct, setCorrect] = useState(false);
@@ -26,23 +27,20 @@ const QuizContainer = () => {
     remainder,
     setRemainder,
     playTime,
+    loading,
   } = useContext(AppContext);
-  console.log("quiz container reload!");
-  console.log("remainder => ", remainder);
-  console.log("current q index in quiz container", questionIdx);
+
   useEffect(() => {
-    if (newGame) {
-      console.log("useEffect - timer called");
+    if (newGame && !loading) {
       timer.current = setInterval(() => {
         setRemainder((prevR) => prevR - 1);
       }, 1000);
       return () => clearInterval(timer.current);
     }
-  }, [questionIdx, newGame]);
+  }, [questionIdx, newGame, loading]);
 
   useEffect(() => {
     if (remainder) {
-      console.log("useEffect - remainder called");
       if (remainder < 1) {
         clearInterval(timer.current);
         onNextQuestion();
@@ -110,9 +108,12 @@ const QuizContainer = () => {
                 </RowQ>
                 <RowQ>
                   <ColQ>
-                    <button onClick={() => onNextQuestion(true)}>
-                      Skip this question
-                    </button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => onNextQuestion(true)}
+                    >
+                      Skip <CaretRight />
+                    </Button>
                   </ColQ>
                 </RowQ>
               </ContainerQ>

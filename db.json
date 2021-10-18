@@ -5,14 +5,14 @@
       "username": "guest",
       "password": "",
       "highestScore": 0,
-      "numberPlays": 1
+      "numberPlays": 3
     },
     {
       "id": 1,
       "username": "tee",
       "password": "a04ce4f25ad79ff8ba880390edfb1ab4",
-      "highestScore": 58,
-      "numberPlays": 18
+      "highestScore": 41,
+      "numberPlays": 31
     },
     {
       "id": 2,
@@ -41,6 +41,13 @@
       "password": "74b87337454200d4d33f80c4663dc5e5",
       "highestScore": 60,
       "numberPlays": 10
+    },
+    {
+      "username": "aa123",
+      "password": "a7431f0258c9b308a73d337c20ca9ee6",
+      "highestScore": 0,
+      "numberPlays": 0,
+      "id": 6
     }
   ],
   "profile": {

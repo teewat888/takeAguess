@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { renderHTML } from "../helper";
 import { AppContext } from "../App";
 
@@ -17,13 +17,7 @@ const MyButton = styled.button`
   }
 `;
 
-const Quiz = ({
-  remainder,
-  onNextQuestion,
-  isSubmit,
-  setIsSubmit,
-  setCorrect,
-}) => {
+const Quiz = ({ onNextQuestion, isSubmit, setIsSubmit, setCorrect }) => {
   const [btnColor, setBtnColor] = useState([
     "white",
     "white",
@@ -31,13 +25,15 @@ const Quiz = ({
     "white",
   ]);
 
-  const { currentQuestion, handleScore } = useContext(AppContext);
+  const { currentQuestion, handleScore, remainder, loading } =
+    useContext(AppContext);
 
   const checkAnswer = (e) => {
     setIsSubmit(true);
+    const { score } = currentQuestion;
     if (e.currentTarget.value === currentQuestion.answer) {
       setCorrect(true);
-      handleScore(currentQuestion.score + remainder);
+      handleScore(score + remainder);
       onNextQuestion();
       switch (parseInt(e.currentTarget.id)) {
         case 0:
@@ -79,6 +75,11 @@ const Quiz = ({
 
   return (
     <>
+      {loading && (
+        <div style={{ textAlign: "center" }}>
+          <Spinner animation="border" />
+        </div>
+      )}
       <Row xs={2}>
         {currentQuestion.choices.map((choice, i) => (
           <Col key={i}>

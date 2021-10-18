@@ -53,6 +53,7 @@ function App() {
     highestScore: 0,
     numberPlays: 0,
   });
+  const [userUpdate, setUserUpdate] = useState(false);
   const [keyword, setKeyword] = useState("question"); //for unsplash image query
   const [loggedIn, setLoggedIn] = useState(false);
   const numberOfQuestions = 3;
@@ -97,46 +98,20 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("useeffect=> question here? ");
-    if (questions.length !== 0 && questionIdx < numberOfQuestions) {
-      const formattedQuestion = extractQuestion(questions[questionIdx]);
-      setCurrentQuestion(formattedQuestion);
+    if (questions.length !== 0) {
+      if (questionIdx < numberOfQuestions) {
+        const formattedQuestion = extractQuestion(questions[questionIdx]);
+        setCurrentQuestion(formattedQuestion);
+      } else {
+        setFinish(true);
+        setNewGame(false);
+        //recordScore();
+      }
+
       //setKeyword(formattedQuestion.question);
       //fetchImage();
-    } else {
-      questions.length !== 0 ? setFinish(true) : setFinish(false); //to make sure if no question/initial state not finish yet
-      setNewGame(false);
-
-      //record play times
-      console.log(
-        "we have current raw data here  ",
-        currentUser.numberPlays,
-        score
-      );
-      setCurrentUser((prev) => {
-        return {
-          ...prev,
-          numberPlays: prev.numberPlays + 1,
-        };
-      });
-      if (score > currentUser.highestScore) {
-        setCurrentUser({ ...currentUser, highestScore: score });
-      }
-      if (questions.length !== 0) {
-        recordScore();
-      }
     }
   }, [questionIdx, questions]);
-
-  const addNumberPlays = () => {
-    setCurrentUser((prev) => {
-      return {
-        ...prev,
-        numberPlays: prev.numberPlays + 1,
-      };
-    });
-    console.log(currentUser);
-  };
 
   const handleNewGame = () => {
     fetchGames();
@@ -144,16 +119,21 @@ function App() {
     setNewGame(true);
     setFinish(false);
     setScore(0);
+    setUserUpdate(false);
   };
   /*
   const nextQuestion = () => {
     setQuestionIdx((prev) => prev + 1);
   };
 */
+  useEffect(() => {
+    console.log("current score::  ", score);
+    return () => {};
+  }, [score]);
+
   const handleScore = (sc) => {
     console.log("sc=> ", sc);
     setScore((prev) => prev + sc);
-    console.log("current score::  ", score);
   };
 
   const fetchUpdateUser = () => {
@@ -193,8 +173,8 @@ function App() {
     loggedIn,
     setLoggedIn,
     currentUser,
-    setCurrentUser,
     recordScore,
+    setCurrentUser,
     finish,
     setFinish,
     playTime,
@@ -202,9 +182,12 @@ function App() {
     setTimeToPlay,
     remainder,
     setRemainder,
+    loading,
+    userUpdate,
+    setUserUpdate,
   };
   return (
-    <Router forceRefresh={false}>
+    <Router>
       <AppContext.Provider value={value}>
         <main>
           <Section>

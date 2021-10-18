@@ -3,8 +3,10 @@ import { Button, ErrorText, BasicInput, FormArea } from "./MyStyles";
 import { AppContext } from "../App";
 import ImageBox from "./ImageBox";
 import UserPanel from "./UserPanel";
+import { useHistory } from "react-router-dom";
 
 const User = () => {
+  const history = useHistory();
   const [toggleForm, setToggleForm] = useState(false);
   const [signForm, setSignForm] = useState({
     user: "",
@@ -77,6 +79,13 @@ const User = () => {
 
   const logout = () => {
     setLoggedIn(false);
+    setCurrentUser({
+      id: 0,
+      username: "guest",
+      password: "",
+      highestScore: 0,
+      numberPlays: 0,
+    });
     setSignForm({
       user: "",
       password: "",
@@ -105,7 +114,36 @@ const User = () => {
       );
   };
 
-  const addUser = (username, password) => {};
+  const addUser = (username, password) => {
+    const newUser = {
+      username: username,
+      password: password,
+      highestScore: 0,
+      numberPlays: 0,
+    };
+    const confObj = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(newUser),
+    };
+    return fetch(localDB + "/users", confObj)
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log("sign up success");
+        setLoggedIn(true);
+        history.push("/");
+      })
+      .catch((e) => {
+        setErrorSignup({
+          ...errorSignup,
+          eStatus: true,
+          eMessage: e,
+        });
+      });
+  };
 
   useEffect(() => {
     if (findUser) {
@@ -115,7 +153,9 @@ const User = () => {
         eMessage: "username already existed",
       });
     } else {
-      addUser(signForm.newUser, md5(signForm.newPassword));
+      if ((signForm.newPassword && signForm.newPassword) != "") {
+        addUser(signForm.newUser, md5(signForm.newPassword));
+      }
     }
   }, [findUser]);
 
@@ -135,17 +175,6 @@ const User = () => {
     }
 
     checkUsername(signForm.newUser);
-
-    /*
-    if (isUsernameExist(signForm.newUser)) {
-      return setErrorSignup({
-        ...errorSignup,
-        eStatus: true,
-        eMessage: "username already existed",
-      });
-    } else {
-      addUser(signForm.newUser, signForm.newPassword);
-    }*/
   };
 
   const handleOnchange = (e) => {
