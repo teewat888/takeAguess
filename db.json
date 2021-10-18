@@ -4,15 +4,15 @@
       "id": 0,
       "username": "guest",
       "password": "",
-      "highestScore": 0,
-      "numberPlays": 3
+      "highestScore": 14,
+      "numberPlays": 0
     },
     {
       "id": 1,
       "username": "tee",
       "password": "a04ce4f25ad79ff8ba880390edfb1ab4",
-      "highestScore": 41,
-      "numberPlays": 31
+      "highestScore": 45,
+      "numberPlays": 41
     },
     {
       "id": 2,
@@ -48,6 +48,41 @@
       "highestScore": 0,
       "numberPlays": 0,
       "id": 6
+    },
+    {
+      "username": "nicha",
+      "password": "bdc18eba3612ae689e4be8b3bbb7fb7e",
+      "highestScore": 39,
+      "numberPlays": 15,
+      "id": 7
+    },
+    {
+      "username": "sdds",
+      "password": "e52fdc32daba527629fa9c26a48c2781",
+      "highestScore": 0,
+      "numberPlays": 0,
+      "id": 8
+    },
+    {
+      "username": "aq1",
+      "password": "edd0200ea10855a3e38e1b522742c059",
+      "highestScore": 0,
+      "numberPlays": 0,
+      "id": 9
+    },
+    {
+      "username": "aq1",
+      "password": "edd0200ea10855a3e38e1b522742c059",
+      "highestScore": 0,
+      "numberPlays": 0,
+      "id": 10
+    },
+    {
+      "username": "aa1",
+      "password": "4524f17a5640c6ccc57bc5a68c0ab3b9",
+      "highestScore": 56,
+      "numberPlays": 1,
+      "id": 11
     }
   ],
   "profile": {

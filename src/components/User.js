@@ -54,6 +54,7 @@ const User = () => {
           });
         } else {
           setLoggedIn(true);
+
           setCurrentUser({
             id: found.id,
             username: found.username,
@@ -79,6 +80,7 @@ const User = () => {
 
   const logout = () => {
     setLoggedIn(false);
+
     setCurrentUser({
       id: 0,
       username: "guest",
@@ -132,9 +134,17 @@ const User = () => {
     return fetch(localDB + "/users", confObj)
       .then((resp) => resp.json())
       .then((data) => {
-        console.log("sign up success");
+        console.log("sign up success get user id = ", data);
         setLoggedIn(true);
-        history.push("/");
+        setCurrentUser({
+          username: username,
+          password: password,
+          highestScore: 0,
+          numberPlays: 0,
+          id: data.id,
+        });
+
+        history.push("/user");
       })
       .catch((e) => {
         setErrorSignup({
@@ -153,7 +163,7 @@ const User = () => {
         eMessage: "username already existed",
       });
     } else {
-      if ((signForm.newPassword && signForm.newPassword) != "") {
+      if ((signForm.newPassword && signForm.newPassword) !== "") {
         addUser(signForm.newUser, md5(signForm.newPassword));
       }
     }

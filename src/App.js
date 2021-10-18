@@ -34,8 +34,9 @@ function App() {
   const [questions, setQuestions] = useState([]);
   const [newGame, setNewGame] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [score, setScore] = useState(0);
+
   const [questionIdx, setQuestionIdx] = useState(0);
   const [finish, setFinish] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState({
@@ -57,7 +58,7 @@ function App() {
   const [keyword, setKeyword] = useState("question"); //for unsplash image query
   const [loggedIn, setLoggedIn] = useState(false);
   const numberOfQuestions = 3;
-  const playTime = 10;
+  const playTime = 20;
   const [timeToPlay, setTimeToPlay] = useState(playTime);
   const [remainder, setRemainder] = useState(timeToPlay);
   const unplashUrl =
@@ -70,8 +71,9 @@ function App() {
       .then((resp) => resp.json())
       .then((data) => {
         setBanner(getPhotoUrl(data));
+        console.log("banner ---> ", banner);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => setError(e));
   };
 
   const fetchGames = () => {
@@ -88,7 +90,7 @@ function App() {
       })
       .catch((e) => {
         console.log(e);
-        setError(true);
+        setError(e);
       });
   };
 
@@ -102,6 +104,8 @@ function App() {
       if (questionIdx < numberOfQuestions) {
         const formattedQuestion = extractQuestion(questions[questionIdx]);
         setCurrentQuestion(formattedQuestion);
+        setKeyword(formattedQuestion.question);
+        fetchImage();
       } else {
         setFinish(true);
         setNewGame(false);
@@ -114,6 +118,7 @@ function App() {
   }, [questionIdx, questions]);
 
   const handleNewGame = () => {
+    setLoading(true);
     fetchGames();
     setQuestionIdx(0);
     setNewGame(true);
@@ -151,7 +156,7 @@ function App() {
       .then((data) => {
         console.log("current user after fetch ", data);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => setError(e));
   };
 
   const recordScore = () => {
@@ -185,6 +190,8 @@ function App() {
     loading,
     userUpdate,
     setUserUpdate,
+    error,
+    setError,
   };
   return (
     <Router>

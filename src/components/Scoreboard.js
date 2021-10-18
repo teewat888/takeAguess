@@ -2,6 +2,9 @@ import React, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../App";
 import ImageBox from "./ImageBox";
 import data from "../dummyScore";
+import MyStyles, { FormArea } from "./MyStyles";
+import { Row, Col } from "react-bootstrap";
+import { uniqueID } from "../helper";
 
 const Scoreboard = () => {
   const { localDB } = useContext(AppContext);
@@ -23,23 +26,24 @@ const Scoreboard = () => {
     const topElements = topScores
       .sort((a, b) => b.highestScore - a.highestScore)
       .slice(0, 5);
-    //console.log("top 5 element ", topElements);
+
     return topElements;
   };
 
   return (
     <>
       <ImageBox />
-      <div>Top 5</div>
-      <ul>
+      <FormArea>
+        <div style={{ textAlign: "center" }}>Top 5</div>
         {getTopFive().map((el, i) => {
           return (
-            <li key={i}>
-              {el.username} --- {el.highestScore}
-            </li>
+            <Row key={uniqueID()} style={{ textAlign: "center" }}>
+              <Col key={uniqueID()}>{el.username}</Col>
+              <Col key={uniqueID()}>{el.highestScore}</Col>
+            </Row>
           );
         })}
-      </ul>
+      </FormArea>
     </>
   );
 };

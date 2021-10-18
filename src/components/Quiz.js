@@ -25,7 +25,7 @@ const Quiz = ({ onNextQuestion, isSubmit, setIsSubmit, setCorrect }) => {
     "white",
   ]);
 
-  const { currentQuestion, handleScore, remainder, loading } =
+  const { currentQuestion, handleScore, remainder, loading, error } =
     useContext(AppContext);
 
   const checkAnswer = (e) => {
@@ -73,43 +73,49 @@ const Quiz = ({ onNextQuestion, isSubmit, setIsSubmit, setCorrect }) => {
     setIsSubmit(false);
   }, [currentQuestion]);
 
-  return (
-    <>
-      {loading && (
-        <div style={{ textAlign: "center" }}>
-          <Spinner animation="border" />
-        </div>
-      )}
-      <Row xs={2}>
-        {currentQuestion.choices.map((choice, i) => (
-          <Col key={i}>
-            {!isSubmit ? (
-              <MyButton
-                id={i}
-                name={choice}
-                type="submit"
-                key={i}
-                onClick={checkAnswer}
-                value={choice}
-              >
-                {renderHTML(choice)}
-              </MyButton>
-            ) : (
-              <MyButton
-                id={i}
-                style={{ backgroundColor: btnColor[i], color: "white" }}
-                name={choice}
-                type="submit"
-                key={i}
-                disabled="disable"
-              >
-                {renderHTML(choice)}
-              </MyButton>
-            )}
-          </Col>
-        ))}
-      </Row>
-    </>
-  );
+  if (error != "") {
+    return error;
+  } else {
+    return (
+      <>
+        {loading && (
+          <div style={{ textAlign: "center" }}>
+            <Spinner animation="border" />
+          </div>
+        )}
+        {!loading && (
+          <Row xs={2}>
+            {currentQuestion.choices.map((choice, i) => (
+              <Col key={i}>
+                {!isSubmit ? (
+                  <MyButton
+                    id={i}
+                    name={choice}
+                    type="submit"
+                    key={i}
+                    onClick={checkAnswer}
+                    value={choice}
+                  >
+                    {renderHTML(choice)}
+                  </MyButton>
+                ) : (
+                  <MyButton
+                    id={i}
+                    style={{ backgroundColor: btnColor[i], color: "white" }}
+                    name={choice}
+                    type="submit"
+                    key={i}
+                    disabled="disable"
+                  >
+                    {renderHTML(choice)}
+                  </MyButton>
+                )}
+              </Col>
+            ))}
+          </Row>
+        )}
+      </>
+    );
+  }
 };
 export default Quiz;

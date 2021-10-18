@@ -13,7 +13,8 @@ const GuestMsg = () => {
 };
 
 const NewGame = () => {
-  const { handleNewGame, currentUser, loggedIn } = useContext(AppContext);
+  const { handleNewGame, currentUser, loggedIn, finish } =
+    useContext(AppContext);
   const { username } = currentUser;
   return (
     <>

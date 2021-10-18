@@ -28,6 +28,8 @@ const QuizContainer = () => {
     setRemainder,
     playTime,
     loading,
+    error,
+    setError,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const QuizContainer = () => {
   }, [questionIdx, newGame, loading]);
 
   useEffect(() => {
+    console.log("effect remainder!");
     if (remainder) {
       if (remainder < 1) {
         clearInterval(timer.current);
