@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../App";
 import ImageBox from "./ImageBox";
 import data from "../dummyScore";
-import MyStyles, { FormArea } from "./MyStyles";
+import { FormArea } from "./MyStyles";
 import { Row, Col } from "react-bootstrap";
 import { uniqueID } from "../helper";
 

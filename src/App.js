@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getPhotoUrl, extractQuestion } from "./helper";
 import QuizContainer from "./components/QuizContainer";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Scoreboard from "./components/Scoreboard";
 import User from "./components/User";
@@ -31,6 +31,7 @@ const AppContext = React.createContext();
 function App() {
   const API_KEY = "cNA5TItg9wcAjyTrbiwVv52vjIZ7IUfxOavV-U6kOWI";
   const [banner, setBanner] = useState("/images/default_sml.jpg");
+  //const [banner, setBanner] = useState("/takeaguess/images/default_sml.jpg");
   const [questions, setQuestions] = useState([]);
   const [newGame, setNewGame] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -57,8 +58,8 @@ function App() {
   const [userUpdate, setUserUpdate] = useState(false);
   const [keyword, setKeyword] = useState("question"); //for unsplash image query
   const [loggedIn, setLoggedIn] = useState(false);
-  const numberOfQuestions = 3;
-  const playTime = 20;
+  const numberOfQuestions = 5;
+  const playTime = 30;
   const [timeToPlay, setTimeToPlay] = useState(playTime);
   const [remainder, setRemainder] = useState(timeToPlay);
   const unplashUrl =
@@ -66,7 +67,7 @@ function App() {
   const triviaUrl = "https://opentdb.com/api.php?amount=" + numberOfQuestions;
 
   //const localDB = "http://localhost:5000";
-  const localDB = "https://616d759f6dacbb001794ca7c.mockapi.io";
+  const localDB = "https://616d759f6dacbb001794ca7c.mockapi.io"; // for internet hosting
   const fetchImage = () => {
     return fetch(unplashUrl + "&query=" + keyword)
       .then((resp) => resp.json())
@@ -105,8 +106,8 @@ function App() {
       if (questionIdx < numberOfQuestions) {
         const formattedQuestion = extractQuestion(questions[questionIdx]);
         setCurrentQuestion(formattedQuestion);
-        setKeyword(formattedQuestion.question);
-        fetchImage();
+        //setKeyword(formattedQuestion.question); //comment this out if you dont want the random images from unsplash
+        //fetchImage();
       } else {
         setFinish(true);
         setNewGame(false);
@@ -127,18 +128,8 @@ function App() {
     setScore(0);
     setUserUpdate(false);
   };
-  /*
-  const nextQuestion = () => {
-    setQuestionIdx((prev) => prev + 1);
-  };
-*/
-  useEffect(() => {
-    console.log("current score::  ", score);
-    return () => {};
-  }, [score]);
 
   const handleScore = (sc) => {
-    console.log("sc=> ", sc);
     setScore((prev) => prev + sc);
   };
 

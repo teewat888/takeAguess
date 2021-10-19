@@ -28,8 +28,6 @@ const QuizContainer = () => {
     setRemainder,
     playTime,
     loading,
-    error,
-    setError,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -91,7 +89,6 @@ const QuizContainer = () => {
               <H5Q>{renderHTML(currentQuestion.question)}</H5Q>
               <ContainerQ>
                 <Quiz
-                  remainder={remainder}
                   onNextQuestion={onNextQuestion}
                   isSubmit={isSubmit}
                   setIsSubmit={setIsSubmit}

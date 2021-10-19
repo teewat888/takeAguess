@@ -44,7 +44,7 @@ const FinishBox = () => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h6>{score === 0 ? "Try again" : "Well done "}!</h6>
+      <h3>{score === 0 ? "Try again" : "Well done "}!</h3>
       <h5>You earn {score} PTS from this game</h5>
     </div>
   );

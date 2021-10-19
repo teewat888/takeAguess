@@ -1,9 +1,12 @@
 import React from "react";
 import { useLocation } from "react-router";
+//import { useLocation, useHistory } from "react-router";
 import ImageBox from "./ImageBox";
 
 const NoMatch = () => {
   let location = useLocation();
+  //let history = useHistory();
+  // history.push("/");
   return (
     <div>
       <ImageBox />
